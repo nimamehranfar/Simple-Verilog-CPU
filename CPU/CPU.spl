@@ -1,0 +1,11 @@
+[Inputs]
+START
+RESET
+OPR
+=OPC[2:0]=
+[Outputs]
+=Accumulator[6:0]=
+[BiDir]
+[ATTRIBUTES]
+VeriModel CPU
+

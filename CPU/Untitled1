@@ -1,0 +1,71 @@
+`timescale 1ns / 1ps
+`define LOAD   3'b000
+`define ADD  3'b001
+`define MUL   3'b010
+`define SUB   3'b011
+`define OR   3'b100
+`define NOT  3'b101
+`define DIS 3'b110
+`define HLT 3'b111
+
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    02:31:13 05/29/2018 
+// Design Name: 
+// Module Name:    CPU
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module CPU( START,RESET,OPC,OPR, Accumulator
+    );
+	
+parameter N=3;
+input CLK,START,RESET;
+input [2:0] OPC;
+input [N-1;0]OPR;
+output [2*N:0] Accumulator;
+reg [2*N:0] Accumulator;
+
+always @(posedge clk) 
+if(RESET) begin
+Accumulator=0;
+OPR=0;
+end
+else if(~RESET) begin
+if(START) begin
+
+begin
+
+case(OPC)
+
+`LOAD: Accumulator=OPR;
+`ADD: Accumulator=Accumulator+OPR;
+`MUL: Accumulator=Accumulator*OPR;
+`SUB: Accumulator=Accumulator-OPR;
+`OR: Accumulator=(Accumulator | OPR);
+`NOT: Accumulator=~Accumulator;
+`DIS: assign Accumulator=Accumulator;
+`HLT: (Accumulator ^ OPR)=0;
+
+endcase
+end
+
+end
+else if(~START) begin
+Accumulator=0;
+OPR=0;
+end
+end
+
+endmodule
